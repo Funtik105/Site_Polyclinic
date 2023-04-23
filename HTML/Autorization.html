@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Autorization</title>
+    <link rel="stylesheet" href="../Styles/Registartion.css">
+
+</head>
+<body>
+<header>
+  <h1>Авторизация</h1>
+</header>
+<main>
+  <form action="../PHP/bd.php" method="post">
+
+    <label for="email">Почта</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="password">Пароль:</label>
+    <input type="password" id="password" name="password" required>
+
+    <button type="submit">Войти</button>
+  </form>
+</main>
+<footer>
+  <p>Вы еще не зарегестрированы <a href="#">Войти</a></p>
+</footer>
+</body>
+</html>

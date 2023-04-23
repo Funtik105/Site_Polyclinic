@@ -1,0 +1,73 @@
+/* Оформление шапки */
+header {
+    background: linear-gradient(to bottom right, rgb(41, 41, 255), #57a0ff);
+    padding: 10px;
+}
+a {
+    text-decoration: none;
+}
+h1 {
+    margin: 0;
+    color: #ffffff;
+    margin-top: 20px;
+}
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    align-content: center;
+    text-align: center;
+}
+nav li {
+    display: inline-block;
+    margin-right: 20px;
+}
+nav a {
+    color: #e1e1e1;
+    text-decoration: none;
+    font-size: 18px;
+}
+nav a:hover {
+    color: #003cff;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Оформление разделов */
+section {
+    margin: 20px 0;
+}
+h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+/* Оформление футера */
+footer {
+    background-color: #eee;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Общее оформление страницы */
+body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+}
+.background-container {
+    background-image: url("../med.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* чтобы контейнер заполнял всю высоту экрана */
+    opacity: 0.8;
+  }
+  
+  .content-container {
+    text-align: center;
+    font-size: 3vw;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+  }
