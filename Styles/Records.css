@@ -63,3 +63,90 @@
     background-color: #f1f1f1;
     color: #333;
 }
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f1f1f1;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,.2);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-weight: bold;
+    font-size: 28px;
+}
+
+nav {
+    display: flex;
+}
+
+nav a {
+    color: #555;
+    text-decoration: none;
+    padding: 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+    transition: all 0.2s ease-in-out;
+}
+
+nav a:hover {
+    background-color: #eee;
+}
+
+main {
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 800px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,.2);
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    margin-left: 260px;
+}
+
+table {
+    width: 75%;
+    height: 100px;
+    border-collapse: collapse;
+    margin-left: 260px;
+    padding-top: 20px;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #eee;
+    font-weight: bold;
+}
+
+.status {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.status--confirmed {
+    color: green;
+}
+
+.status--canceled {
+    color: red;
+}
+
+.status--pending {
+    color: orange;
+}
