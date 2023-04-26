@@ -2,23 +2,8 @@
     //SELECT appointments.date_appointments, appointments.status, doctor.full_name, doctor.specialization
     //FROM appointments
     //JOIN doctor ON appointments.doctor_id = doctor.id_doctor
-
-$servername = "localhost"; // Имя сервера базы данных
-$username = "root"; // Имя пользователя базы данных
-$password = ""; // Пароль базы данных
-$dbname = "polyclinic"; // Имя базы данных
-
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-
-if(!$conn) {
-    die("Connection Failed". mysqli_connect_error());
-}
-
-$sql = "SELECT appointments.date_appointments, appointments.status, doctor.full_name, doctor.specialization".
-    "FROM appointments".
-    "JOIN doctor ON appointments.doctor_id = doctor.id_doctor";
-$result = mysqli_query($conn, $sql);
 ?>
+
 
 
 
@@ -48,16 +33,10 @@ $result = mysqli_query($conn, $sql);
 <h1>Мои приемы</h1>
 <table>
     <tr>
-        <?php
-        while($row = mysqli_fetch_assoc($result)) {
-        ?>
-        <th><?php echo $row['full_name']; ?></th>
-        <th><?php echo $row['specialization']; ?></th>
-        <th><?php echo $row['date_appointments']; ?></th>
-        <th><?php echo $row['status']; ?></th>
-            <?php
-        }
-        ?>
+        <th>Врач</th>
+        <th>Специальность</th>
+        <th>Дата приема</th>
+        <th>Статус</th>
     </tr>
     <tr>
         <th>Врач</th>

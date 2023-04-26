@@ -2,6 +2,7 @@
 header {
     background: linear-gradient(to bottom right, rgb(41, 41, 255), #57a0ff);
     padding: 10px;
+    height: 80px;
 }
 a {
     text-decoration: none;
@@ -66,8 +67,35 @@ body {
     opacity: 0.8;
   }
   
-  .content-container {
+.content-container {
     text-align: center;
     font-size: 3vw;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
-  }
+}
+
+section {
+    background-color: #f1f1f1;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+section ul li {
+    font-size: 18px;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+ul li:last-child {
+    border-bottom: none;
+}
+section a {
+    text-decoration: none;
+    color: black;
+}

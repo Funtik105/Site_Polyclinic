@@ -1,15 +1,7 @@
 <?php
 
-$servername = "localhost"; // Имя сервера базы данных
-$username = "root"; // Имя пользователя базы данных
-$password = ""; // Пароль базы данных
-$dbname = "polyclinic"; // Имя базы данных
-
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-
-if(!$conn) {
-    die("Connection Failed". mysqli_connect_error());
-}
+global $conn;
+require "../PHP/connect.php";
 
 $result = mysqli_query($conn, "SELECT * FROM `patient` WHERE id_patient=1");
 
@@ -43,12 +35,12 @@ if(isset($_POST['save'])) {
 </a>
 <div class="sidebar">
     <ul class="sidebar-menu">
-        <li><a href="AboutUser.html"><u>Личные данные</u></a></li>
-        <li><a href="Records.html">Мои записи</a></li>
+        <li><a href="AboutUser.php"><u>Личные данные</u></a></li>
+        <li><a href="Records.php">Мои записи</a></li>
         <li><a href="#">История болезни</a></li>
         <li><a href="#">Планирование визитов</a></li>
         <li><a href="#">Результаты анализов</a></li>
-        <li class="logout"><a href="#">Выйти</a></li>
+        <li class="logout"><a href="../PHP/logout.php">Выйти</a></li>
     </ul>
 </div>
 

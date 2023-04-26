@@ -1,0 +1,91 @@
+body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background: linear-gradient(to bottom right, rgb(41, 41, 255), #57a0ff);
+    padding: 10px;
+    height: 80px;
+}
+a {
+    text-decoration: none;
+}
+h1 {
+    margin: 0;
+    color: #ffffff;
+    margin-top: 20px;
+}
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    align-content: center;
+    text-align: center;
+}
+nav li {
+    display: inline-block;
+    margin-right: 20px;
+}
+nav a {
+    color: #e1e1e1;
+    text-decoration: none;
+    font-size: 18px;
+}
+nav a:hover {
+    color: #003cff;
+    transition: all 0.3s ease-in-out;
+}
+section {
+    margin-left: 20px;
+}
+h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+.services {
+    display: flex;
+    justify-content: space-between;
+}
+
+.services-image {
+    display: flex;
+    width: 95%; /* или другой подходящий размер */
+    margin-left: 2em; /* или другое значение отступа */
+}
+
+.services-image img {
+    width: 46%;
+    display: flex;
+    padding-right: 100px;
+}
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+section ul li {
+    font-size: 18px;
+    padding: 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+ul li:last-child {
+    border-bottom: none;
+}
+section a {
+    text-decoration: none;
+    color: black;
+}
+
+
+/* Оформление футера */
+footer {
+    background-color: #eee;
+    padding: 10px;
+    text-align: center;
+}
+
