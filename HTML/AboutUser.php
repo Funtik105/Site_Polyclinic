@@ -3,7 +3,7 @@
 global $conn;
 require "../PHP/connect.php";
 
-$result = mysqli_query($conn, "SELECT * FROM `patient` WHERE id_patient=1");
+$result = mysqli_query($conn, "SELECT * FROM `patient` WHERE patient_id=1");
 
 if(isset($_POST['save'])) {
     $Full_name = $_POST['Full_name'];
@@ -13,8 +13,9 @@ if(isset($_POST['save'])) {
     $number_polis = $_POST['number_polis'];
 
 // Запрос на обновление данных в базе данных
-    $sql = "UPDATE `patient` SET Full_name='$Full_name', email='$email', number_phone='$number_phone', adress='$adress', number_polis='$number_polis' WHERE id_patient=1";
+    $sql = "UPDATE `patient` SET Full_name='$Full_name', email='$email', number_phone='$number_phone', adress='$adress', number_polis='$number_polis' WHERE patient_id=1";
     if (mysqli_query($conn, $sql)) {
+        header('Location: ../HTML/AboutUser.php');
     } else {
         echo "Ошибка при обновлении данных: " . mysqli_error($conn);
     }
@@ -36,7 +37,7 @@ if(isset($_POST['save'])) {
 <div class="sidebar">
     <ul class="sidebar-menu">
         <li><a href="AboutUser.php"><u>Личные данные</u></a></li>
-        <li><a href="Records.php">Мои записи</a></li>
+        <li><a href="appointment.php">Мои записи</a></li>
         <li><a href="#">История болезни</a></li>
         <li><a href="#">Планирование визитов</a></li>
         <li><a href="#">Результаты анализов</a></li>

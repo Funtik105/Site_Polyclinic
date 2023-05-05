@@ -7,14 +7,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'];
 
     // Выполнение запроса на выборку пользователя из базы данных
-    $sql = "SELECT id, email, password FROM users WHERE email = '$email'";
+    $sql = "SELECT id_user, email, password FROM users WHERE email = '$email'";
 
     $result = $conn->query($sql);
 
     if ($result->num_rows === 1) {
         // Получение данных пользователя из результата запроса
         $row = $result->fetch_assoc();
-        $user_id = $row['id'];
+        $user_id = $row['id_user'];
         $stored_email = $row['email'];
         $stored_password = $row['password'];
 
@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             session_start();
 
             // Создание переменной сессии
-            $_SESSION['user_id'] = $user_id;
+            $_SESSION['id_user'] = $user_id;
 
             // Перенаправление на личный кабинет
             header('Location: ../HTML/AboutUser.php');

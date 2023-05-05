@@ -1,0 +1,288 @@
+body {
+    background-color: #f5f5f5;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 36px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-top: 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+th,
+td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.status {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.status.pending {
+    color: orange;
+}
+
+.status.approved {
+    color: green;
+}
+
+.status.cancelled {
+    color: red;
+}
+
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px; /* Скрыть панель за левой границей экрана */
+    width: 250px;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.sidebar.active {
+    left: 0; /* Открыть панель, сдвинув ее на 250px вправо */
+}
+
+.iconmenu {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    height: 30px;
+    width: 30px;
+}
+
+.sidebar-menu {
+    margin-top: 50px;
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar-menu li {
+    margin-bottom: 10px;
+}
+
+.sidebar-menu a {
+    display: block;
+    padding: 10px;
+    color: #333;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.logout {
+    margin-top: auto;
+}
+
+.logout a {
+    display: block;
+    padding: 10px;
+    text-align: center;
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+}
+
+.logout a:hover {
+    background-color: #ddd;
+}
+.sidebar li a:hover,
+.sidebar li a.active {
+    background-color: #f1f1f1;
+    color: #333;
+}
+.main_text {
+margin-left: 330px;
+    font-size: 30px;
+}
+.menu {
+    display: none;
+    position: fixed;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    width: 800px;
+    z-index: 9999;
+    border-radius: 9px;
+    text-align: left;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    top: 40%;
+    left: 45%;
+    transform: translate(-40%, -50%);
+}
+
+#add-student-form label {
+    font-family: 'Lato', sans-serif;
+    display: inline-block;
+    width: 100px;
+    margin-bottom: 10px;
+
+}
+
+@media (max-width: 768px) {
+    .menu {
+        transform: scale(0.6); /* меню уменьшится на 40% на экранах шириной не более 768px */
+    }
+}
+
+#add-student-form {
+    transition: transform 0.3s ease-in-out;
+    font-family: 'Lato', sans-serif;
+    font-size: 19px;
+}
+
+#add-student-form input[type=text] {
+    width: 95%;
+    padding: 5px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 18px;
+}
+
+#add-student-form button[type=submit] {
+    background-color: #163E73;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 9px;
+    cursor: pointer;
+    width: 20%;
+    margin-left: 310px;
+    margin-top: 10px;
+}
+
+#add-student-form button[type=submit]:hover {
+    background-color: #0e61af;
+    transition: all 0.3s ease-in-out;
+}
+
+select {
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: 10px 8px;
+    padding-right: 24px;
+    width: 96.5%;
+    height: 30px;
+    border-radius: 9px;
+    font-size: 20px;
+}
+
+/* Стилизация опций */
+select option {
+    background-color: #fff;
+    color: #000;
+    font-size: 20px;
+}
+
+/* Стилизация при наведении на опцию */
+select option:hover {
+    background-color: #e2e2e2;
+}
+
+/* Стилизация при выборе опции */
+select option:checked {
+    background-color: #0074d9;
+    color: #fff;
+}
+
+/* Стилизация при открытии списка */
+select:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #0074d9;
+}
+
+
+
+li a {
+    text-align: center;
+}
+
+.show-menu .menu {
+    display: block;
+}
+
+
+th {
+    background-color: #ffffff;
+    color: #000000;
+}
+td img {
+    margin-right: 20px;
+    vertical-align: middle;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.menu-container {
+    position: relative;
+}
+.menu-list {
+    border-radius: 9px; /* закругляем углы */
+    position: absolute;
+    margin-top: 10px;
+    top: 100%;
+    left: 0;
+    z-index: 999;
+    display: none;
+    padding: 0;
+    list-style: none;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-top: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.9);
+}
+.menu-list li {
+    padding: 5px 10px;
+    margin-top: 10px;
+}
+.menu-list li:hover {
+    background-color: #f5f5f5;
+}
+.add button {
+    background-color: #163E73;
+    color: white;
+    height: 50px;
+    width: 8%;
+    border-radius: 9px;
+    font-size: 1.2vw;
+    border: none;
+    cursor: pointer;
+    float: right;
+}
+
+.add button:hover {
+    background-color: #0e61af;
+    transition: all 0.3s ease-in-out;
+}
