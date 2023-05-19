@@ -20,15 +20,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Выполнение запроса на добавление нового пользователя в базу данных
     $sql = "INSERT INTO users (email, password) VALUES ('$email', '$hashed_password')";
 
+    $id = mysqli_insert_id($conn);
+    $pat = "INSERT INTO patient (id, email) VALUES ('$id', '$email')";
+    $med = "INSERT INTO medical_card (date_create) VALUES (NOW())";
+
+
     if ($conn->query($sql) === TRUE) {
-        echo 'Регистрация прошла успешно';
-        $patient_id = $_SESSION['patient_id'];
-        header('Location: ../HTML/AboutUser.php');
+        header('Location: ../HTML/Autorization.php');
     } else {
         echo 'Ошибка при выполнении запроса: ' . $conn->error;
     }
-}
 
+    if ($conn->query($pat) === TRUE) {
+        header('Location: ../HTML/Autorization.php');
+    } else {
+        echo 'Ошибка при выполнении запроса: ' . $conn->error;
+    }
+    if ($conn -> query($med) === TRUE) {
+    } else {
+        "NO" . $conn -> error;
+    }
+}
 $conn->close();
 ?>
 
@@ -46,7 +58,7 @@ $conn->close();
 <body>
 <!---------------------------------------------------------------------------------------------------------------------->
 <div class="container">
-    <img src="../logo.png" alt="logo">
+    <a href="Home.html"> <img src="../logo.png" alt="logo"></a>
     <h1>Добро пожаловать</h1>
     <h2>Войдите в свой<br>аккаунт</h2>
 

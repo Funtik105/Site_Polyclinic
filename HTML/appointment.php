@@ -2,21 +2,25 @@
 
 global $conn;
 require "../PHP/connect.php";
+session_start();
+$id = $_SESSION['id'];
 
-$result = mysqli_query($conn,"SELECT patient.Full_name AS Full_name, doctor.full_name AS
-full_name, doctor.specialization, appointments.date, appointments.time, appointments.cabinet, appointments.status
-FROM appointments JOIN patient ON appointments.patient_id = patient.patient_id JOIN doctor ON appointments.doctor_id = doctor.doctor_id WHERE patient.patient_id=1");
+$doc = mysqli_query($conn, "SELECT full_name FROM doctor");
 
-$pat = mysqli_query($conn, "SELECT * FROM `patient` WHERE patient_id=1");
+// Подготовленный SQL-запрос с параметром для идентификатора пациента
+$query = "SELECT doctor.full_name AS full_name, doctor.specialization, appointments.date, appointments.time, shedule.cabinet, appointments.status 
+          FROM appointments 
+          JOIN doctor ON appointments.doctor_id = doctor.id 
+          JOIN shedule ON appointments.doctor_id = shedule.doctor_id 
+          WHERE appointments.patient_id = ?";
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $date = $_POST['date'];
-    $time = $_POST['time'];
-    $medical_card_id = 1;
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $id);
+$stmt->execute();
 
-    $sql = "INSERT INTO appointments (date, time) VALUSES ('$date', '$time', '$medical_card_id')";
-    
-}
+$result = $stmt->get_result();
+
+
 
 ?>
 
@@ -34,20 +38,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="sidebar">
     <ul class="sidebar-menu">
         <li><a href="AboutUser.php">Личные данные</a></li>
-        <li><a href="Records.php"><u>Мои записи</u></a></li>
+        <li><a href="appointment.php"><u>Планирование визитов</u></a></li>
+        <li><a href="Report.php">Мои приемы</a></li>
         <li><a href="#">История болезни</a></li>
-        <li><a href="#">Планирование визитов</a></li>
         <li><a href="#">Результаты анализов</a></li>
         <li class="logout"><a href="../PHP/logout.php">Выйти</a></li>
     </ul>
 </div>
 
 <header>
-    <h1>Мои приемы</h1>
+    <h1>Планирование приемов</h1>
     <div class="add">
         <button id="menu-button">Добавить</button>
     </div>
 </header>
+
+<?php if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+$date = $_POST['date'];
+$time = $_POST['time'];
+$doctorId = $_POST['doctor'];
+
+// Валидация данных формы (можете добавить свою собственную логику валидации)
+
+// Здесь предполагается, что у вас есть переменная $conn, которая представляет соединение с базой данных.
+    $status = "Запланировано";
+// Добавление записи в таблицу appointments
+$sql = "INSERT INTO appointments (doctor_id, patient_id, date, time, status) VALUES ('$doctorId', '$id', '$date', '$time', '$status')";
+
+if ($conn->query($sql) === TRUE) {
+    echo 'Запись на прием успешно создана';
+    header('Location: ../HTML/appointment.php');
+} else {
+    echo 'Ошибка при выполнении запроса: ' . $conn->error;
+    }
+}
+?>
 
 <form method="post">
     <ul id="menu" class="menu">
@@ -55,33 +80,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <a href="#">
                 <img src="../kres.jpg" class="close" id="close" style="width: 30px; height: 30px; float: right">
             </a>
-
-            <?php
-            while($row = mysqli_fetch_assoc($pat)) {
-            ?>
-                <label for="name">ФИО:</label>
-                <input type="text" id="name" name="name" value="<?php echo $row['Full_name']; ?>" READONLY><br>
+            <label for="doctor">Выберите врача:</label>
+            <select name="doctor" id="doctor">
                 <?php
-            }
-            ?>
-            <label>Врач:</label>
-            <select id="student-group" name="student-group">
-                <option value="Группа 1">Иванов Александ Иванович</option>
-                <option value="Группа 2">Горюнов Алесандр Сергеевич</option>
-                <option value="Группа 3">Петров Сергей Генадьевич</option>
-                <option value="Группа 4">Иванов Витилий Никитич</option>
-                <option value="Группа 5">Иванов Константин Викторович</option>
+                $docResult = mysqli_query($conn, "SELECT id, full_name FROM doctor");
+                while ($row = mysqli_fetch_assoc($docResult)) {
+                    echo '<option value="' . $row['id'] . '">' . $row['full_name'] . '</option>';
+                }
+                ?>
             </select>
-            <label for="date"><br>Дата:</label>
-            <input type="date" id="date" name="date"><br>
-            <label for="time">Время:</label>
-            <select id="time" name="time">
-                <option value="Группа 1">9:00</option>
-                <option value="Группа 2">10:00</option>
-                <option value="Группа 3">11:00</option>
-                <option value="Группа 4">12:00</option>
-                <option value="Группа 5">13:00</option>
-            </select>
+            <br><label for="date">Выберите дату:</label>
+            <input type="date" name="date" id="date" required><br>
+            <label for="time">Выберите время:</label>
+            <input type="time" name="time" id="time" required><br>
             <button id="done" type="submit">Сохранить</button>
         </div>
     </ul>
@@ -91,26 +102,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <table>
         <thead>
         <tr>
-            <th>ФИО пациента</th>
             <th>ФИО врача</th>
             <th>Специальность врача</th>
             <th>Дата приема</th>
             <th>Время приема</th>
-            <th>Кабинет</th>
             <th>Статус</th>
+            <th>Кабинет</th>
         </tr>
         </thead>
         <tbody>
         <?php
         while($row = mysqli_fetch_assoc($result)) {
             echo "<tr>";
-            echo "<td>". $row['Full_name']. "</td>";
             echo "<td>". $row['full_name']. "</td>";
             echo "<td>". $row['specialization']. "</td>";
             echo "<td>". $row['date']. "</td>";
             echo "<td>". $row['time']. "</td>";
-            echo "<td>". $row['cabinet']. "</td>";
             echo "<td>". $row['status']. "</td>";
+            echo "<td>". $row['cabinet']. "</td>";
         }
         ?>
         </tbody>
