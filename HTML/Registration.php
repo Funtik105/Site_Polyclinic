@@ -1,4 +1,51 @@
 <?php
+//global $conn;
+//session_start();
+//require "../PHP/connect.php";
+//
+//if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+//    $email = $_POST['email'];
+//    $password = $_POST['password'];
+//    $confirm_password = $_POST['confirm_password'];
+//
+//    // Проверка, что введенные пароли совпадают
+//    if ($password !== $confirm_password) {
+//        echo 'Пароли не совпадают';
+//        exit;
+//    }
+//
+//    // Хэширование пароля
+//    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+//
+//    // Выполнение запроса на добавление нового пользователя в базу данных
+//    $sql = "INSERT INTO users (email, password) VALUES ('$email', '$hashed_password')";
+//
+//    $id = mysqli_insert_id($conn);
+//    $pat = "INSERT INTO patient (id, email) VALUES ('$id', '$email')";
+//    $med = "INSERT INTO medical_card (date_create) VALUES (NOW())";
+//
+//
+//
+//
+//    if ($conn->query($sql) === TRUE) {
+//        header('Location: ../HTML/Autorization.php');
+//    } else {
+//        echo 'Ошибка при выполнении запроса: ' . $conn->error;
+//    }
+//
+//    if ($conn->query($pat) === TRUE) {
+//        header('Location: ../HTML/Autorization.php');
+//    } else {
+//        echo 'Ошибка при выполнении запроса: ' . $conn->error;
+//    }
+//    if ($conn -> query($med) === TRUE) {
+//    } else {
+//        "NO" . $conn -> error;
+//    }
+//}
+//$conn->close();
+
+
 global $conn;
 session_start();
 require "../PHP/connect.php";
@@ -15,33 +62,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Хэширование пароля
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
     // Выполнение запроса на добавление нового пользователя в базу данных
-    $sql = "INSERT INTO users (email, password) VALUES ('$email', '$hashed_password')";
+    $sql = "INSERT INTO users (email, password, role) VALUES ('$email', '$password', 'Пациент')";
 
-    $id = mysqli_insert_id($conn);
-    $pat = "INSERT INTO patient (id, email) VALUES ('$id', '$email')";
-    $med = "INSERT INTO medical_card (date_create) VALUES (NOW())";
-
-
+    // Выполнение запроса на добавление нового пациента в базу данных
     if ($conn->query($sql) === TRUE) {
-        header('Location: ../HTML/Autorization.php');
-    } else {
-        echo 'Ошибка при выполнении запроса: ' . $conn->error;
+        $userId = $conn->insert_id; // Получение идентификатора только что созданной записи в таблице "users"
+
+        // Выполнение запроса на добавление новой медицинской карты в базу данных
+
+            // Обновление FK в таблице "patient"
+            $patientSql = "INSERT INTO patient (id, email) VALUES ('$userId', '$email')";
+            if ($conn->query($patientSql) === TRUE) {
+                header('Location: ../HTML/Autorization.php');
+            } else {
+                echo 'Ошибка при выполнении запроса: ' . $conn->error;
+            }
+        }
     }
 
-    if ($conn->query($pat) === TRUE) {
-        header('Location: ../HTML/Autorization.php');
-    } else {
-        echo 'Ошибка при выполнении запроса: ' . $conn->error;
-    }
-    if ($conn -> query($med) === TRUE) {
-    } else {
-        "NO" . $conn -> error;
-    }
-}
-$conn->close();
+
 ?>
 
 

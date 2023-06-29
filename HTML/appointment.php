@@ -12,7 +12,7 @@ $query = "SELECT doctor.full_name AS full_name, doctor.specialization, appointme
           FROM appointments 
           JOIN doctor ON appointments.doctor_id = doctor.id 
           JOIN shedule ON appointments.doctor_id = shedule.doctor_id 
-          WHERE appointments.patient_id = ?";
+          WHERE appointments.patient_id = ? ORDER BY appointments.date";
 
 $stmt = $conn->prepare($query);
 $stmt->bind_param("i", $id);
@@ -125,8 +125,6 @@ if ($conn->query($sql) === TRUE) {
         </tbody>
     </table>
 </main>
-
-
 
 <script>
     const sidebar = document.querySelector('.sidebar');

@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'];
 
     // Выполнение запроса на выборку пользователя из базы данных
-    $sql = "SELECT id, email, password FROM users WHERE email = '$email'";
+    $sql = "SELECT id, email, password, role FROM users WHERE email = '$email'";
 
     $result = $conn->query($sql);
 
@@ -17,21 +17,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id = $row['id'];
         $stored_email = $row['email'];
         $stored_password = $row['password'];
+        $role = $row['role'];
 
         // Проверка, что введенный пароль соответствует хэшу пароля пользователя
-        if (password_verify($password, $stored_password)) {
             // Начало сессии
             session_start();
 
             // Создание переменной сессии
             $_SESSION['id'] = $id;
 
-            // Перенаправление на личный кабинет
-            header('Location: ../HTML/AboutUser.php');
+            // Перенаправление на соответствующую страницу в зависимости от роли пользователя
+            if ($role === 'Пациент') {
+                header('Location: ../HTML/AboutUser.php');
+            } else {
+                header('Location: ../HTML/AboutDoctor.php');
+            }
             exit;
-        } else {
-            echo 'Неправильный пароль';
-        }
     } else {
         echo 'Пользователь с такой почтой не найден';
     }
@@ -39,6 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $conn->close();
 ?>
+
 
 
 <!DOCTYPE html>

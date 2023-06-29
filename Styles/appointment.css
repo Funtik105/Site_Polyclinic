@@ -162,14 +162,6 @@ margin-left: 330px;
     font-size: 19px;
 }
 
-#add-student-form input[type=text] {
-    width: 95%;
-    padding: 5px;
-    margin-bottom: 10px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 18px;
-}
 
 #add-student-form button[type=submit] {
     background-color: #163E73;
@@ -285,4 +277,8 @@ td img {
 .add button:hover {
     background-color: #0e61af;
     transition: all 0.3s ease-in-out;
+}
+td a {
+    text-decoration: none;
+    color: black;
 }

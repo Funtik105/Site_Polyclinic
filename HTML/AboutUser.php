@@ -7,23 +7,37 @@ $id = $_SESSION['id'];
 
 //$result = mysqli_query($conn, "SELECT * FROM `patient` WHERE id='$id'");
 $result = mysqli_query($conn, "SELECT patient.id, patient.full_name, patient.email, patient.adress, patient.number_phone,
-patient.number_polis, patient.date_birthday, patient.gender FROM patient
-    JOIN medical_card ON patient.id = medical_card.id WHERE patient.id = '$id'");
+patient.number_polis, patient.date_birthday, patient.gender FROM patient WHERE patient.id = '$id'");
 
-if(isset($_POST['delete'])) {
-    $user = "DELETE FROM users WHERE id='$id'";
-    $user_res = $conn -> query($user);
-    $pat = "DELETE FROM patient WHERE id='$id'";
-    $pat_res = $conn -> query($pat);
-    $med = "DELETE FROM medical_card WHERE id='$id'";
-    $med_res = $conn -> query($med);
-    header('Location: ../HTML/Home.html');
-    if($user_res === TRUE && $pat_res === TRUE) {
-        echo "OK";
+if (isset($_POST['delete'])) {
+
+    $rep = "DELETE report
+        FROM report
+        JOIN appointments ON report.appointment_id = appointments.id
+        WHERE appointments.patient_id = '$id'";
+    $rep_res = $conn->query($rep);
+    // Удаление записей из связанных таблиц
+    $app = "DELETE FROM appointments WHERE patient_id = '$id'";
+    $app_res = $conn->query($app);
+
+    // Удаление записей из таблицы patient
+    $pat = "DELETE FROM patient WHERE id = '$id'";
+    $pat_res = $conn->query($pat);
+
+    // Удаление записей из таблицы users
+    $user = "DELETE FROM users WHERE id = '$id'";
+    $user_res = $conn->query($user);
+
+
+
+    // Удаление записей из таблицы medical_card
+
+    // Проверка результатов удаления
+    if ($user_res === TRUE && $pat_res === TRUE && $app_res === TRUE && $rep_res === TRUE) {
+        header('Location: ../HTML/Home.html');
     } else {
-        echo "fail " . $conn -> error;
+        echo "Ошибка при выполнении запроса: " . $conn->error;
     }
-
 }
 
 if(isset($_POST['save'])) {
@@ -85,8 +99,6 @@ if(isset($_POST['save'])) {
                 <label for="adress">Адрес:</label>
                 <textarea id="adress" name="adress"><?php echo $row['adress']; ?></textarea>
 
-                <label for="number_card">Номер медицинской карты:</label>
-                <input type="tel" id="medical_card" name="medical_card" value="<?php echo $row['id']; ?>" READONLY style="background-color: #E1E1E1FF">
 
                 <label for="number_polis">Номер полиса:</label>
                 <input type="tel" id="number_polis" name="number_polis" value="<?php echo $row['number_polis']; ?>">
